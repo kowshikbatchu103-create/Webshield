@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebShield | Security Scanner</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <aside class="sidebar">
+        <div class="brand">
+            <div class="brand-icon">W</div>
+            <div>
+                <h2>WebShield</h2>
+                <span>APPLICATION SECURITY</span>
+            </div>
+        </div>
+
+        <nav>
+            <a class="nav-item active" href="#dashboard">▦ Dashboard</a>
+            <a class="nav-item" href="#results">◈ Scan Findings</a>
+            <a class="nav-item" href="#history">◷ Scan History</a>
+            <a class="nav-item" href="#methodology">◎ OWASP Checks</a>
+        </nav>
+
+        <div class="sidebar-bottom">
+            <div class="status-dot"></div>
+            Local scanner
+            <span class="online">READY</span>
+        </div>
+    </aside>
+
+    <main class="main-content" id="dashboard">
+        <header class="topbar">
+            <div>
+                <p class="eyebrow">SECURITY OPERATIONS / OVERVIEW</p>
+                <h1>Security Dashboard</h1>
+                <p class="subtitle">Discover configuration weaknesses before attackers do.</p>
+            </div>
+            <div class="environment">
+                <span class="status-dot"></span>
+                LOCAL ENVIRONMENT
+            </div>
+        </header>
+
+        <section class="welcome-panel">
+            <div>
+                <span class="pill">OWASP-INSPIRED TESTING</span>
+                <h2>Your security, in focus.</h2>
+                <p>Run a preliminary security configuration assessment on a website you are authorized to test.</p>
+            </div>
+            <div class="shield-art" aria-hidden="true">⬡</div>
+        </section>
+
+        <section class="scan-panel">
+            <div class="section-heading">
+                <div>
+                    <h2>Start a security scan</h2>
+                    <p>Enter the HTTPS address of your authorized target.</p>
+                </div>
+                <span class="small-label">PASSIVE CHECKS</span>
+            </div>
+
+            <form id="scan-form">
+                <label for="target-url">TARGET URL</label>
+                <div class="input-row">
+                    <span class="input-prefix">↗</span>
+                    <input
+                        id="target-url"
+                        type="url"
+                        placeholder="https://your-authorized-website.com"
+                        required
+                        autocomplete="url">
+                    <button id="scan-button" type="submit">
+                        <span id="button-text">Run Scan ↗</span>
+                    </button>
+                </div>
+            </form>
+
+            <p class="notice">
+                ⚠ Only scan websites you own or have explicit permission to test.
+            </p>
+            <p id="scan-status" role="status" aria-live="polite"></p>
+        </section>
+
+        <section class="metrics">
+            <article class="metric-card">
+                <div class="metric-top">
+                    <span>Total Findings</span>
+                    <span class="metric-icon">◈</span>
+                </div>
+                <h2 id="total-count">—</h2>
+                <p>Potential configuration issues</p>
+            </article>
+
+            <article class="metric-card">
+                <div class="metric-top">
+                    <span>High Severity</span>
+                    <span class="metric-icon high-text">↑</span>
+                </div>
+                <h2 id="high-count" class="high-text">—</h2>
+                <p>Requires further investigation</p>
+            </article>
+
+            <article class="metric-card">
+                <div class="metric-top">
+                    <span>Medium Severity</span>
+                    <span class="metric-icon medium-text">!</span>
+                </div>
+                <h2 id="medium-count" class="medium-text">—</h2>
+                <p>Review recommended</p>
+            </article>
+
+            <article class="metric-card">
+                <div class="metric-top">
+                    <span>Low Severity</span>
+                    <span class="metric-icon low-text">↓</span>
+                </div>
+                <h2 id="low-count" class="low-text">—</h2>
+                <p>Hardening opportunities</p>
+            </article>
+        </section>
+
+        <section class="results-panel" id="results">
+            <div class="section-heading">
+                <div>
+                    <h2>Security findings</h2>
+                    <p id="target-summary">Your scan results will appear here.</p>
+                </div>
+                <span class="small-label" id="result-count">AWAITING SCAN</span>
+            </div>
+
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>FINDING</th>
+                            <th>SEVERITY</th>
+                            <th>OWASP CATEGORY</th>
+                            <th>STATUS</th>
+                        </tr>
+                    </thead>
+                    <tbody id="findings-body">
+                        <tr>
+                            <td colspan="4" class="empty-state">
+                                <div class="empty-icon">⌕</div>
+                                <strong>No scan results yet</strong>
+                                <p>Enter an authorized HTTPS target above to begin.</p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p class="table-note">Findings are preliminary indicators, not proof of an exploitable vulnerability.</p>
+        </section>
+                <section class="results-panel" id="history">
+            <div class="section-heading">
+                <div>
+                    <h2>Recent scan history</h2>
+                    <p>Scans completed during the current WebShield session.</p>
+                </div>
+                <span class="small-label" id="history-count">0 SCANS</span>
+            </div>
+
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>TARGET</th>
+                            <th>SCANNED AT</th>
+                            <th>STATUS</th>
+                            <th>FINDINGS</th>
+                        </tr>
+                    </thead>
+                    <tbody id="history-body">
+                        <tr>
+                            <td colspan="4" class="empty-state">
+                                <div class="empty-icon">◷</div>
+                                <strong>No scan history yet</strong>
+                                <p>Completed scans will appear here.</p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section class="results-panel" id="methodology">
+            <div class="section-heading">
+                <div>
+                    <h2>Assessment methodology</h2>
+                    <p>Checks currently implemented in WebShield.</p>
+                </div>
+            </div>
+            <div class="method-grid">
+                <div class="method-item">
+                    <span>01</span>
+                    <div><strong>HTTP Security Headers</strong><p>Checks for selected defensive response headers.</p></div>
+                </div>
+                <div class="method-item">
+                    <span>02</span>
+                    <div><strong>Cookie Attributes</strong><p>Flags possible Secure and HttpOnly omissions.</p></div>
+                </div>
+                <div class="method-item">
+                    <span>03</span>
+                    <div><strong>Target Validation</strong><p>Restricts the initial scanner to public HTTPS destinations.</p></div>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <span>WebShield · Authorized Security Testing</span>
+            <span>OWASP-inspired · Educational prototype</span>
+        </footer>
+    </main>
+
+    <script src="{{ url_for('static', filename='script.js') }}" defer></script>
+</body>
+</html>
